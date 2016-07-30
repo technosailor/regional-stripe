@@ -43,7 +43,8 @@ define( 'REGSTR_INC',     REGSTR_PATH . 'includes/' );
 
 // Include files
 require_once REGSTR_INC . 'functions/core.php';
-
+require_once REGSTR_INC . 'functions/utilities.php';
+require_once REGSTR_INC . 'functions/stripe.php';
 
 // Activation/Deactivation
 register_activation_hook( __FILE__, '\RegionalStripe\RegionalStripe\Core\activate' );
