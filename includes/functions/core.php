@@ -17,6 +17,8 @@ function setup() {
 	add_action( 'init', $n( 'i18n' ) );
 	add_action( 'init', $n( 'init' ) );
 
+	add_action( 'wp_enqueue_scripts', $n( 'enqueue_scripts' ) );
+
 	do_action( 'regstr_loaded' );
 }
 
@@ -71,4 +73,19 @@ function activate() {
  */
 function deactivate() {
 
+}
+
+/**
+ * Enqueue
+ */
+function enqueue_scripts() {
+	wp_register_script( 'regional-stripe', REGSTR_URL . 'assets/js/regional-stripe.js', [ 'jquery' ], REGSTR_VERSION );
+	wp_localize_script( 'regional-stripe', 'regstr', [
+		'timeout'   => PHP_INT_MAX,
+		'originLat' => apply_filters( 'regstr_originlat', '39.283493' ),
+		'originLon' => apply_filters( 'regstr_originlon', '-76.580451' )
+	] );
+	if( ! is_admin() ) {
+		wp_enqueue_script( 'regional-stripe' );
+	}
 }
