@@ -23,6 +23,9 @@
 		originLat : regstr.originLat,
 		originLon : regstr.originLon,
 
+		// Eligibility
+		isEligible : false,
+
 		success : function( position ) {
 			var origin = {
 				originLat : regional.originLat,
@@ -30,10 +33,12 @@
 			};
 
 			var distance = regional.haversine( origin, position.coords );
-			return regional.metersToMiles( distance );
+			if( regstr.maxRange <= regional.metersToMiles( distance ) ) {
+				regional.isEligible = true;
+			}
 		},
 		failure : function( error ) {
-			console.debug( error );
+			regional.isEligible = false;
 		},
 		squared : function( number ) {
 			return number * number;

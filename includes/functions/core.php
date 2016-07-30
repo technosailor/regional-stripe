@@ -83,7 +83,8 @@ function enqueue_scripts() {
 	wp_localize_script( 'regional-stripe', 'regstr', [
 		'timeout'   => PHP_INT_MAX,
 		'originLat' => apply_filters( 'regstr_originlat', '39.283493' ),
-		'originLon' => apply_filters( 'regstr_originlon', '-76.580451' )
+		'originLon' => apply_filters( 'regstr_originlon', '-76.580451' ),
+		'maxRange'  => 50
 	] );
 	if( ! is_admin() ) {
 		wp_enqueue_script( 'regional-stripe' );
