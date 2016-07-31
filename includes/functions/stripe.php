@@ -16,19 +16,21 @@ function register_shortcode( $atts ) {
 
 	ob_start();
 	?>
-	<form action="" method="POST">
-		<script
-			src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-			data-key="<?php echo esc_attr( $apikey ) ?>"
-			data-amount="<?php echo esc_attr( (int) $amount ) ?>"
-			data-name="<?php echo esc_attr( $atts['name'] ) ?>"
-			data-description="<?php echo esc_attr( (int) $atts['description'] ) ?>"
-			data-image="https://s3.amazonaws.com/stripe-uploads/acct_18cN1QLahYbeRp0amerchant-icon-1469745486696-LFCBox%2021231%20crest.jpg"
-			data-locale="auto"
-			<?php echo ( $atts['verifyPostal'] ) ? ' data-zip-code="true"' : '' ?>
-		>
-		</script>
-	</form>
+	<div class="stripe-container">
+		<form action="" method="POST">
+			<script
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="<?php echo esc_attr( $apikey ) ?>"
+				data-amount="<?php echo esc_attr( (int) $amount ) ?>"
+				data-name="<?php echo esc_attr( $atts['name'] ) ?>"
+				data-description="<?php echo esc_attr( (int) $atts['description'] ) ?>"
+				data-image="https://s3.amazonaws.com/stripe-uploads/acct_18cN1QLahYbeRp0amerchant-icon-1469745486696-LFCBox%2021231%20crest.jpg"
+				data-locale="auto"
+				<?php echo ( $atts['verifyPostal'] ) ? ' data-zip-code="true"' : '' ?>
+			>
+			</script>
+		</form>
+	</div>
 	<?php
 	return ob_get_clean();
 }

@@ -84,7 +84,8 @@ function enqueue_scripts() {
 		'timeout'   => PHP_INT_MAX,
 		'originLat' => apply_filters( 'regstr_originlat', '39.283493' ),
 		'originLon' => apply_filters( 'regstr_originlon', '-76.580451' ),
-		'maxRange'  => 50
+		'maxRange'  => 50,
+		'outOfRangeMsg' => sanitize_text_field( apply_filters( 'regstr_out_of_range_message', __( 'We cannot process your payment at this time as you are not in the appropriate geographic area.' ) ) )
 	] );
 	if( ! is_admin() ) {
 		wp_enqueue_script( 'regional-stripe' );

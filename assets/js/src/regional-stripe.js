@@ -23,9 +23,6 @@
 		originLat : regstr.originLat,
 		originLon : regstr.originLon,
 
-		// Eligibility
-		isEligible : false,
-
 		success : function( position ) {
 			var origin = {
 				originLat : regional.originLat,
@@ -33,12 +30,13 @@
 			};
 
 			var distance = regional.haversine( origin, position.coords );
+			console.debug(position);
 			if( regstr.maxRange <= regional.metersToMiles( distance ) ) {
-				regional.isEligible = true;
+				regional.stripeButtonHide();
 			}
 		},
 		failure : function( error ) {
-			regional.isEligible = false;
+			regional.stripeButtonHide();
 		},
 		squared : function( number ) {
 			return number * number;
@@ -56,17 +54,23 @@
 		},
 		metersToMiles : function( meters ) {
 			return meters * 0.000621371192;
+		},
+		stripeButtonHide : function() {
+			var stripe_button = document.getElementsByClassName( 'stripe-container' );
+			stripe_button.innerHTML = '<p><em>' + regstr.outOfRangeMsg + '</em></p>';
 		}
 	};
 
 	if( navigator.geolocation ) {
 		navigator.geolocation.getCurrentPosition(
-			location.success,
-			location.failure,
+			regional.success,
+			regional.failure,
 			{
 				enableHighAccuracy: true
 			}
 		)
+	} else {
+		regional.stripeButtonHide();
 	}
 
-} )( this );
+} )( this, $ );
